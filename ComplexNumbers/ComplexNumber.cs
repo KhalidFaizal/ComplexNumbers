@@ -6,12 +6,13 @@
 //
 
 using System;
+using static System.Math;
 
 namespace ComplexNumbers
 {
     public class ComplexNumber
     {
-        //TODO Add functions for: Reciprocal (1/z), Check if argument is the principal argument, Log, exponential, polar form
+        //TODO Add functions for: Check if argument is the principal argument, Log, exponential, polar form
 
         public double Real { get; }
         public double Imaginary { get; }
@@ -30,12 +31,12 @@ namespace ComplexNumbers
         /// <summary>
         /// Returns the conjugate of a complex number a+ib as a-ib
         /// </summary>
-        public ComplexNumber Conjugate => new ComplexNumber(Real, -1.0*Imaginary);
+        public ComplexNumber Conjugate => new ComplexNumber(Real, -1.0 * Imaginary);
 
         /// <summary>
         /// Returns Modulus of a complex number
         /// </summary>
-        public double Modulus => Math.Sqrt(Math.Pow(Real, 2.0) + Math.Pow(Imaginary, 2.0));
+        public double Modulus => Sqrt(Pow(Real, 2.0) + Pow(Imaginary, 2.0));
 
         /// <summary>
         /// Returns the argument of a complex number in RADIANS
@@ -46,34 +47,35 @@ namespace ComplexNumbers
             {
                 if (Real > 0)
                 {
-                    return Math.Atan(Imaginary/Real);
+                    return Atan(Imaginary / Real);
                 }
 
                 if (Real < 0 && Imaginary >= 0)
                 {
-                    return Math.Atan(Imaginary/Real) + Math.PI;
+                    return Atan(Imaginary / Real) + PI;
                 }
 
                 if (Real < 0 && Imaginary < 0)
                 {
-                    return Math.Atan(Imaginary / Real) - Math.PI;
+                    return Atan(Imaginary / Real) - PI;
                 }
 
                 if (Real == 0 && Imaginary > 0)
                 {
-                    return Math.PI/2;
+                    return PI / 2;
                 }
 
                 if (Real == 0 && Imaginary < 0)
                 {
-                    return -Math.PI / 2;
+                    return -PI / 2;
                 }
 
                 if (Real == 0 && Imaginary == 0)
                 {
-                    throw new Exception("Argument Error: Both the real and imaginary parts are 0, argument is undefined!");
+                    throw new Exception(
+                        "Argument Error: Both the real and imaginary parts are 0, argument is undefined!");
                 }
-                
+
                 throw new Exception("Why the fuck did this even hit? MAGIC"); // wtf?
             }
         }
@@ -108,7 +110,8 @@ namespace ComplexNumbers
         /// <returns>The multiplication of x and y</returns>
         public static ComplexNumber operator *(ComplexNumber x, ComplexNumber y)
         {
-            return new ComplexNumber(x.Real*y.Real - x.Imaginary*y.Imaginary, x.Imaginary*y.Real + x.Real*y.Imaginary);
+            return new ComplexNumber(x.Real * y.Real - x.Imaginary * y.Imaginary,
+                x.Imaginary * y.Real + x.Real * y.Imaginary);
         }
 
         /// <summary>
@@ -125,19 +128,32 @@ namespace ComplexNumbers
                     "Division by zero error: Both the real and imaginary parts of the second complex number are zero");
             }
 
-            double divisionDenominator = Math.Pow(y.Real, 2.0) + Math.Pow(y.Imaginary, 2.0);
-            double realPart = (x.Real*y.Real + x.Imaginary*y.Imaginary)/divisionDenominator;
-            double imaginaryPart = (x.Imaginary*y.Real - x.Real*y.Imaginary)/divisionDenominator;
+            double divisionDenominator = Pow(y.Real, 2.0) + Pow(y.Imaginary, 2.0);
+            double realPart = (x.Real * y.Real + x.Imaginary * y.Imaginary) / divisionDenominator;
+            double imaginaryPart = (x.Imaginary * y.Real - x.Real * y.Imaginary) / divisionDenominator;
 
             return new ComplexNumber(realPart, imaginaryPart);
         }
 
+        /// <summary>
+        /// Returns the reciprocal 1/z of a complex number z by using 1/z = zbar / z * zbar = zbar / |z| ^ 2
+        /// </summary>
+        /// <param name="z">The complex number to calculate the reciprocal of</param>
+        /// <returns>The reciprocal of the complex number z</returns>
+        public static ComplexNumber GetReciprocal(ComplexNumber z)
+        {
+            double modSquared = Pow(z.Modulus, 2.0);
+            double realPart = z.Real / modSquared;
+            double imaginaryPart = -1 * (z.Imaginary / modSquared);
+
+            return new ComplexNumber(realPart, imaginaryPart);
+        }
 
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((ComplexNumber)obj);
+            return obj.GetType() == GetType() && Equals((ComplexNumber) obj);
         }
 
         public override int GetHashCode()
@@ -183,7 +199,20 @@ namespace ComplexNumbers
         {
             string sign = Imaginary < 0 ? "-" : "+";
 
-            return Real + " " + sign + " " + Math.Abs(Imaginary) + "i";
+            // Check for no real part output
+            if (Real != 0.0)
+            {
+                return Real + " " + sign + " " + (Abs(Imaginary) == 1.0 ? "i" : Abs(Imaginary) + "i");
+            }
+
+            // Check if the imaginary part is one to output a single i with no unit 1 in front
+            if (Abs(Imaginary) == 1.0)
+            {
+                return sign == "-" ? sign + " i" : "i";
+            }
+
+            // Otherwise output as normal
+            return sign == "-" ? sign + Abs(Imaginary) + "i" : Abs(Imaginary) + "i";
         }
     }
 }

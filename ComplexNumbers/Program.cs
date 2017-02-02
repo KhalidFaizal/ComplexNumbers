@@ -9,8 +9,8 @@ namespace ComplexNumbers
     {
         public static void Main(string[] args)
         {
-            ComplexNumber x = new ComplexNumber(-0.25, -0.25);
-            ComplexNumber y = new ComplexNumber(-0.25, -0.25);
+            ComplexNumber x = new ComplexNumber(2, -4);
+            ComplexNumber y = new ComplexNumber(0, 0.001);
 
             try
             {
@@ -32,6 +32,11 @@ namespace ComplexNumbers
                 Console.WriteLine("x / y = " + (x / y));
                 Console.WriteLine("\nArg(x) is " + x.Argument);
                 Console.WriteLine("Arg(y) is " + y.Argument);
+
+                Console.WriteLine($"\n1/x = {ComplexNumber.GetReciprocal(x)}");
+                Console.WriteLine($"1/y = {ComplexNumber.GetReciprocal(y)}");
+
+                Console.WriteLine();
             }
             catch (Exception ex)
             {
