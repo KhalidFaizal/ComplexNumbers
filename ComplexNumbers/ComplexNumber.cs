@@ -11,7 +11,7 @@ namespace ComplexNumbers
 {
     public class ComplexNumber
     {
-        //TODO Add functions for: Reciprocal (1/z), Check if argument is the principal argument, Log, exponential, polar form, shit
+        //TODO Add functions for: Reciprocal (1/z), Check if argument is the principal argument, Log, exponential, polar form
 
         public double Real { get; }
         public double Imaginary { get; }
