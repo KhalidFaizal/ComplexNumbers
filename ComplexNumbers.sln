@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplexNumbers", "ComplexNumbers\ComplexNumbers.csproj", "{E4164D39-E70B-4644-92E0-521C7A7818A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplexNumberUnitTests", "ComplexNumberUnitTests\ComplexNumberUnitTests.csproj", "{1C4BF2F3-8DFB-45E1-BA72-F4A37A09E3A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E4164D39-E70B-4644-92E0-521C7A7818A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4164D39-E70B-4644-92E0-521C7A7818A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4164D39-E70B-4644-92E0-521C7A7818A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4164D39-E70B-4644-92E0-521C7A7818A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C4BF2F3-8DFB-45E1-BA72-F4A37A09E3A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C4BF2F3-8DFB-45E1-BA72-F4A37A09E3A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C4BF2F3-8DFB-45E1-BA72-F4A37A09E3A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C4BF2F3-8DFB-45E1-BA72-F4A37A09E3A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
