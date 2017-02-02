@@ -12,8 +12,6 @@ namespace ComplexNumbers
 {
     public class ComplexNumber
     {
-        //TODO Add functions for: Check if argument is the principal argument, Log, exponential, polar form
-
         public double Real { get; }
         public double Imaginary { get; }
 
@@ -135,20 +133,6 @@ namespace ComplexNumbers
             return new ComplexNumber(realPart, imaginaryPart);
         }
 
-        /// <summary>
-        /// Returns the reciprocal 1/z of a complex number z by using 1/z = zbar / z * zbar = zbar / |z| ^ 2
-        /// </summary>
-        /// <param name="z">The complex number to calculate the reciprocal of</param>
-        /// <returns>The reciprocal of the complex number z</returns>
-        public static ComplexNumber GetReciprocal(ComplexNumber z)
-        {
-            double modSquared = Pow(z.Modulus, 2.0);
-            double realPart = z.Real / modSquared;
-            double imaginaryPart = -1 * (z.Imaginary / modSquared);
-
-            return new ComplexNumber(realPart, imaginaryPart);
-        }
-
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -164,9 +148,26 @@ namespace ComplexNumbers
             }
         }
 
+        /// <summary>
+        /// Compares two complex numbers for equality
+        /// </summary>
+        /// <param name="other">The other complex number to compare to</param>
+        /// <returns>True if both are equal, false otherwise</returns>
         protected bool Equals(ComplexNumber other)
         {
-            return Real.Equals(other.Real) && Imaginary.Equals(other.Imaginary);
+            return AboutEqual(Real, other.Real) && AboutEqual(Imaginary, other.Imaginary);
+        }
+
+        /// <summary>
+        /// Compares two doubles for equality using a calculated tolerance value of epsilon
+        /// </summary>
+        /// <param name="x">The first double to compare</param>
+        /// <param name="y">The second double to compare</param>
+        /// <returns>True if the two doubles are "about" equal, false otherwise</returns>
+        public static bool AboutEqual(double x, double y)
+        {
+            double epsilon = Max(Abs(x), Abs(y)) * 1E-15;
+            return Abs(x - y) <= epsilon;
         }
 
         /// <summary>
@@ -213,6 +214,66 @@ namespace ComplexNumbers
 
             // Otherwise output as normal
             return sign == "-" ? sign + Abs(Imaginary) + "i" : Abs(Imaginary) + "i";
+        }
+
+        /// <summary>
+        /// Returns the reciprocal 1/z of a complex number z by using 1/z = zbar / z * zbar = zbar / |z| ^ 2
+        /// </summary>
+        /// <param name="z">The complex number to calculate the reciprocal of</param>
+        /// <returns>The reciprocal of the complex number z</returns>
+        public static ComplexNumber GetReciprocal(ComplexNumber z)
+        {
+            double modSquared = Pow(z.Modulus, 2.0);
+            double realPart = z.Real / modSquared;
+            double imaginaryPart = -1 * (z.Imaginary / modSquared);
+
+            return new ComplexNumber(realPart, imaginaryPart);
+        }
+
+        /// <summary>
+        /// Returns the complex log of z
+        /// </summary>
+        /// <param name="z">Complex number z</param>
+        /// <returns>Complex log of z</returns>
+        public static ComplexNumber ComplexLog(ComplexNumber z)
+        {
+            return new ComplexNumber(Log(z.Modulus), z.Argument);
+        }
+
+        /// <summary>
+        /// Returns the exponential log of z
+        /// </summary>
+        /// <param name="z">Complex exponential z</param>
+        /// <returns>Complex exponential of z</returns>
+        public static ComplexNumber ComplexExponential(ComplexNumber z)
+        {
+            double realPart = Exp(z.Real) * Cos(z.Imaginary);
+            double imaginaryPart = Exp(z.Real) * Sin(z.Imaginary);
+
+            return new ComplexNumber(realPart, imaginaryPart);
+        }
+
+        /// <summary>
+        /// Evaluates the complex number z in polar form z = r ( cos(theta) + sin(theta); r = |z| and theta = arg(z)
+        /// </summary>
+        /// <param name="z">The complex number to return the polar form of</param>
+        /// <returns>Polar form of the complex number z</returns>
+        public static ComplexNumber PolarForm(ComplexNumber z)
+        {
+            double realPart = z.Modulus * Cos(z.Argument);
+            double imaginaryPart = z.Modulus * Sin(z.Argument);
+
+            return new ComplexNumber(realPart, imaginaryPart);
+        }
+
+        /// <summary>
+        /// Prints the polar form of the complex number z = r ( cos(theta) + sin(theta); r = |z| and theta = arg(z)
+        /// </summary>
+        /// <param name="z">The complex number to print the polar form of</param>
+        /// <returns>Polar form of the complex number z</returns>
+        public static string PolarFormOutput(ComplexNumber z)
+        {
+            return z.Modulus + "(Cos(" + z.Argument + ") + Sin(" + z.Argument + "))";
         }
     }
 }
