@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.Math;
 
 namespace ComplexNumbers
 {
@@ -9,8 +10,8 @@ namespace ComplexNumbers
     {
         public static void Main(string[] args)
         {
-            ComplexNumber x = new ComplexNumber(2, -4);
-            ComplexNumber y = new ComplexNumber(0, 0.001);
+            ComplexNumber x = new ComplexNumber(-Sqrt((3)), 1);
+            ComplexNumber y = new ComplexNumber(Sqrt(2), Sqrt(6));
 
             try
             {
@@ -35,6 +36,17 @@ namespace ComplexNumbers
 
                 Console.WriteLine($"\n1/x = {ComplexNumber.GetReciprocal(x)}");
                 Console.WriteLine($"1/y = {ComplexNumber.GetReciprocal(y)}");
+
+                Console.WriteLine($"\nLog(x) = {ComplexNumber.ComplexLog(x)}");
+                Console.WriteLine($"Log(y) = {ComplexNumber.ComplexLog(y)}");
+
+                Console.WriteLine($"\nexp(x) = {ComplexNumber.ComplexExponential(x)}");
+                Console.WriteLine($"exp(y) = {ComplexNumber.ComplexExponential(y)}");
+
+                Console.WriteLine($"\nPolar of x = {ComplexNumber.PolarFormOutput(x)}");
+                Console.WriteLine($"Polar of x == x is {ComplexNumber.PolarForm(x) == x}");
+                Console.WriteLine($"Polar of y = {ComplexNumber.PolarFormOutput(y)}");
+                Console.WriteLine($"Polar of y == y is {ComplexNumber.PolarForm(y) == y}");
 
                 Console.WriteLine();
             }
